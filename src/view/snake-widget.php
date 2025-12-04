@@ -8,6 +8,3 @@
         <button id="snake-reset">Reset</button>
     </div>
 </div>
-
-<link rel="stylesheet" href="public/css/snake.css">
-<script src="public/js/snake.js"></script>

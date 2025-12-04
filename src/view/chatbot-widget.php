@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="public/css/chatbot.css">
-<script src="public/js/chatbot.js" defer></script>
 <div id="chatbot-widget">
     <div id="chatbot-header">
         <span>Brutus, l'assistant Chat'bruti</span>
