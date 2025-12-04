@@ -10,5 +10,6 @@
 
 </head>
 <body>
+ <button onclick="window.location.href = "index.php/src/model/tetris.php?">lien tetris tmp</button>
 </body>
 </html>
