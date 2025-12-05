@@ -37,6 +37,8 @@
         $level = $_SESSION['level'] ?? 1;
         $idx = min($level, 7);
         ?>
+        <p>
+Dans notre aventure, Android te met un petit handicap : certaines applis sont imposées et tu ne peux pas les supprimer. Elles restent là, prennent un peu de place et t’empêchent d’avoir totalement la main sur ton téléphone. À toi maintenant de relever le défi et de reprendre le contrôle pour avancer !        </p>
         <p>Contrôlez la raquette gauche avec ↑ et ↓. Score à gauche : joueur, score à droite : IA.</p>
         
         <div style="display: flex; gap: 20px; align-items: flex-start; justify-content: center; margin-top: 10px;">
