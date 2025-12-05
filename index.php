@@ -22,7 +22,6 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/">
     <title>No Fork Village - Carte Interactive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +40,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
 <body>
 
     <!-- Particules d'arrière-plan -->
-    <canvas id="particles"></canvas>
+    <!--<canvas id="particles"></canvas>-->
     
     <div class="container">
         <!-- Titre principal -->
@@ -54,13 +53,9 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
         <section class="context-section">
             <h2>Explorez No Fork Village</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-            <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                Bienvenue à No Fork Village, un lieu où l'aventure et la découverte vous attendent à chaque coin de rue. 
+                Utilisez la carte interactive ci-dessous pour explorer les différentes zones du village. 
+                Cliquez sur les zones pour en savoir plus et interagir avec des jeux passionnants intégrés directement dans la carte.
             </p>
         </section>
 
@@ -77,34 +72,34 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                     
                     <area shape="rect" 
                           coords="360,30,660,170" 
-                          href="#zone1" 
-                          alt="Zone 1"
-                          title="Zone 1 - Cliquez pour jouer à Tetris"
-                          onclick="openTetrisModal(); return false;">
+                          href="#infos" 
+                          alt="infos"
+                          title="Informations"
+                          onclick="openGameModal('src/view/infos', 'Zone 1 - Informations'); return false;">
                     
                     
                     <area shape="circle" 
-                          coords="360,300,80" 
-                          href="#zone2" 
-                          alt="Zone 2"
-                          title="Zone 2 - Cliquez pour jouer à Snake"
-                          onclick="openGameModal('src/view/snake-widget.php', '🐍 Zone 2 - Snake'); return false;">
+                          coords="250,170,80" 
+                          href="#Port" 
+                          alt="Port"
+                          title="Port"
+                          onclick="openGameModal('src/view/snake-widget.php', 'Zone 2 - Snake'); return false;">
                     
                     
                     <area shape="rect" 
-                          coords="450,300,850,550" 
+                          coords="350,230,750,550" 
                           href="#Centre Ville" 
                           alt="Centre Ville"
                           title="Centre ville"
-                          onclick="openGameModal('src/view/pong-widget.php', 'Zone 3 - Pacman'); return false;">
+                          onclick="openGameModal('src/view/pong-widget.php', 'Zone 3 - Pong'); return false;">
                     
                     
                     <area shape="circle" 
-                          coords="250,600,150" 
-                          href="#zone4" 
-                          alt="Zone 4"
+                          coords="200,470,150" 
+                          href="#Dojo" 
+                          alt="Dojo"
                           title="Dojo"
-                          onclick="handleMapClick('Dojo'); return false;">
+                          onclick="openGameModal('src/model/tetris.php', 'Zone 4 - Tetris'); return false;">
                 </map>
                 
                 <!-- Indicateur de zone survolée -->
@@ -115,10 +110,10 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
             <div class="map-legend">
                 <h3>🗺️ Zones Interactives</h3>
                 <ul>
-                    <li><span class="legend-marker zone1" style="background: <?=$_SESSION['game']['info']['color']?>"></span> Zone 1 - Point d'intérêt nord</li>
-                    <li><span class="legend-marker zone2" style="background: <?=$_SESSION['game']['tetris']['color']?>"></span> Zone 2 - Place centrale</li>
-                    <li><span class="legend-marker zone3" style="background: <?=$_SESSION['game']['snake']['color']?>"></span> Zone 3 - Centre ville</li>
-                    <li><span class="legend-marker zone4" style="background: <?=$_SESSION['game']['pacman']['color']?>"></span> Zone 4 - Dojo</li>
+                    <li><span class="legend-marker zone1" style="background: <?=$_SESSION['game']['info']['color']?>"></span> Zone d'information</li>
+                    <li><span class="legend-marker zone2" style="background: <?=$_SESSION['game']['tetris']['color']?>"></span> Port</li>
+                    <li><span class="legend-marker zone3" style="background: <?=$_SESSION['game']['snake']['color']?>"></span> Centre ville</li>
+                    <li><span class="legend-marker zone4" style="background: <?=$_SESSION['game']['pacman']['color']?>"></span> Dojo</li>
                 </ul>
                 <p class="legend-hint">💡 Survolez et cliquez sur les zones de la carte pour les explorer</p>
             </div>
@@ -163,11 +158,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
             this.style.justifyContent = 'center';
         });
 
-        /**
-         * -----------------------------------------
-         *   🚀 FIX : openGameModal exécute les JS
-         * -----------------------------------------
-         */
+
         function openGameModal(filePath, modalTitle = 'Contenu') {
 
             const modal = new bootstrap.Modal(document.getElementById('gameModal'));
@@ -217,11 +208,6 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                         </div>
                     `;
                 });
-        }
-
-        // Compatibilité ancienne fonction
-        function openTetrisModal() {
-            openGameModal('src/model/tetris.php', '🎮 Zone 1 - Tetris');
         }
         
         // Fonction pour ajuster les coordonnées de la map
@@ -276,7 +262,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                     <h5 class="modal-title" id="gameModalLabel" style="color: #DDEB9D;">Contenu</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="gameModalBody" style="color: #DDEB9D;">
+                <div class="modal-body" id="gameModalBody" style="color: #DDEB9D; display: flex; justify-content: center; align-items: center; min-height: 300px;">
                     <div class="text-center">
                         <div class="spinner-border text-light" role="status">
                             <span class="visually-hidden">Chargement...</span>

@@ -144,10 +144,42 @@ function drawWin() {
     ctxSnake.textAlign = "center";
     ctxSnake.textBaseline = "middle";
     ctxSnake.fillText("YOU WIN!", canvasSnake.width / 2, canvasSnake.height / 2);
+    
+    // Mettre à jour la session et la couleur sur la carte
+    fetch('public/api/updateGameStatus.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            game: 'snake',
+            color: 'green'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('✅ Statut du jeu mis à jour:', data);
+            // Mettre à jour visuellement la légende sur la page
+            updateLegendColor('zone2', 'green');
+        } else {
+            console.error('❌ Erreur lors de la mise à jour:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Erreur réseau:', error);
+    });
 }
 
+// Fonction pour mettre à jour la couleur dans la légende
+function updateLegendColor(zoneClass, color) {
+    const legendMarker = document.querySelector(`.legend-marker.${zoneClass}`);
+    if (legendMarker) {
+        legendMarker.style.background = color;
+        console.log(`🎨 Couleur de ${zoneClass} mise à jour en ${color}`);
+    }
+}
 
-// --------------------
 // Affichage Game Over
 // --------------------
 function drawGameOver() {
