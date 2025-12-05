@@ -326,7 +326,7 @@ body::before {
 }
 
 .map-legend h3 {
-    color: #DDEB9D;
+    color: #ebbe9d;
     font-size: 1.3rem;
     margin-bottom: 1rem;
     text-shadow: 0 0 10px rgba(221, 235, 157, 0.3);
@@ -359,6 +359,7 @@ body::before {
     box-shadow: 0 0 10px currentColor;
 }
 
+/*
 .legend-marker.zone1 {
     background: #DDEB9D;
 }
@@ -373,7 +374,7 @@ body::before {
 
 .legend-marker.zone4 {
     background: linear-gradient(135deg, #A0C878, #DDEB9D);
-}
+}*/
 
 .legend-hint {
     color: rgba(160, 200, 120, 0.8);
