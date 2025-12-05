@@ -131,19 +131,23 @@ $CELL_SIZE = 30;
     let score = 0;
 
     const pieces = [
-        [[1,1,1,1,1]], // Long piece
-        [[1,1,1,1]],   // I
-        [[1,1],[1,1]], // O
-        [[0,1,0],[1,1,1]], // T
-        [[1,1,0],[0,1,1]], // S
-        [[0,1,1],[1,1,0]], // Z
-        [[1,0,0],[1,1,1]], // L
-        [[0,0,1],[1,1,1]]  // J
+        { type: 0, shape: [[1,1,1,1]] }, // I
+        { type: 1, shape: [[1,1],[1,1]] }, // O
+        { type: 2, shape: [[0,1,0],[1,1,1]] }, // T
+        { type: 3, shape: [[1,1,0],[0,1,1]] }, // S
+        { type: 4, shape: [[0,1,1],[1,1,0]] }, // Z
+        { type: 5, shape: [[1,0,0],[1,1,1]] }, // L
+        { type: 6, shape: [[0,0,1],[1,1,1]] }  // J
     ];
 
     function newPiece() {
-        const shape = pieces[Math.floor(Math.random() * pieces.length)];
-        return { shape: shape.map(r => [...r]), x: Math.floor(GRID_WIDTH/2 - shape[0].length/2), y: 0 };
+        const p = pieces[Math.floor(Math.random() * pieces.length)];
+        return {
+            type: p.type,
+            shape: p.shape.map(r => [...r]),
+            x: Math.floor(GRID_WIDTH/2 - p.shape[0].length/2),
+            y: 0
+        };
     }
 
     let piece = newPiece();
@@ -152,13 +156,13 @@ $CELL_SIZE = 30;
 
     const pieceImages = {};
     const imageSources = {
-        I: "/images/microsoft/update.jpeg",
-        O: "/images/microsoft/server.png",
-        T: "/images/microsoft/usb.png",
-        S: "/images/microsoft/candy-crush.jpg",
-        Z: "/images/microsoft/menu.jpg",
-        L: "/images/microsoft/laptop-on-fire.png",
-        J: "/images/microsoft/buy-office.jpg",
+        0: "/images/microsoft/update.jpeg",// I
+        1: "/images/microsoft/server.png", // O
+        2: "/images/microsoft/usb.png", // T
+        3: "/images/microsoft/candy-crush.jpg",// S
+        4: "/images/microsoft/menu.jpg",// Z
+        5: "/images/microsoft/laptop-on-fire.png",// L
+        6: "/images/microsoft/buy-office.jpg",// J
     };
 
     for (const type in imageSources) {
@@ -166,8 +170,6 @@ $CELL_SIZE = 30;
         img.src = imageSources[type];
         pieceImages[type] = img;
     }
-
-
 
     function drawGrid() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -180,9 +182,9 @@ $CELL_SIZE = 30;
         for(let y=0; y<piece.shape.length; y++)
             for(let x=0; x<piece.shape[y].length; x++)
                 if(piece.shape[y][x]) {
-                    ctx.fillStyle="red";
-                    //ctx.drawImage(pieceImages[piece.type], (piece.x+x)*CELL_SIZE, (piece.y+y)*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    //ctx.fillStyle="red";
                     ctx.fillRect((piece.x+x)*CELL_SIZE,(piece.y+y)*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+                    ctx.drawImage(pieceImages[piece.type], (piece.x+x)*CELL_SIZE, (piece.y+y)*CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
     }
 
@@ -211,21 +213,17 @@ $CELL_SIZE = 30;
                 y++;
             }
             if (linesClearedTotal%3===0 && linesClearedTotal>0) {
-                //message random nird
-                showPopup()
+                showPopup(getRandomMessage());
             }
         }
         if(removed>0) {
             linesClearedTotal += removed;
-            // Score rules
             if(removed===1) score +=50;
             else if(removed===2) score +=150;
             else if(removed>=3) score +=250;
-
             document.getElementById("score").innerText = score;
             document.getElementById("lines").innerText = linesClearedTotal;
         }
-
         // Win condition
         if(score >= 1000) {
             showPopup("Bravo vous avez vaincu microsoft.", 5000);
@@ -236,7 +234,6 @@ $CELL_SIZE = 30;
         const popup = document.getElementById("popup");
         popup.innerText = text;
         popup.classList.add("show");
-
         setTimeout(() => {
             popup.classList.remove("show");
         }, duration);
@@ -245,7 +242,6 @@ $CELL_SIZE = 30;
 
     function rotatePiece(nb = 1) {
         let rotated;
-
         if (nb === -1) {
             rotated = piece.shape[0].map((_, i) => piece.shape.map(row => row[i])).reverse();
         } else {
@@ -291,8 +287,7 @@ $CELL_SIZE = 30;
                 piece = newPiece();
                 if(collide(piece.x,piece.y)) {
                     alert("Fin de partie");
-                    window.location.reload();
-                    return;
+                    resetGame()
                 }
             }
             lastFall=timestamp;
