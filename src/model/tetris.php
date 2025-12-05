@@ -15,13 +15,14 @@ $CELL_SIZE = 30;
     <meta charset="utf-8">
     <title>Tetris</title>
     <style>
-        body { font-family: Arial, sans-serif; background:#f0f0f0; padding:8px; }
+        .chatbot-msg p {pargin: 0}
+        body { font-family: Arial, sans-serif; padding:8px; }
         .controls { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;     justify-content: center;}
         .controls button { padding:6px 10px; }
         .gamebox { display:flex; gap:12px; align-items:flex-start; justify-content:center; padding-top:5px; }
-        .panel { background:white; padding:8px; border:1px solid #ddd; border-radius:6px; }
-        .small { font-size:0.9em; color:#333;  }
-        #tetris { border:1px solid #ccc; margin: 0 auto; display: block;}
+        .panel { padding:8px; border:1px solid #ddd; border-radius:6px; }
+        .small { font-size:0.9em; color: #bfbebe;  }
+        #tetris { border:1px solid #ccc; margin: 0 auto; display: block; background:white; }
 
         .message-box {
             position: absolute;
@@ -89,7 +90,7 @@ $CELL_SIZE = 30;
     </script>
 </head>
 </div>
-<body >
+<body>
 
 <div class="gamebox">
     <div class="panel">
