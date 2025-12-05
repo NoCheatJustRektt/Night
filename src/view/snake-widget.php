@@ -31,7 +31,9 @@ $idx = min($level, 7);
     <div style="display: flex; gap: 20px; align-items: flex-start; justify-content: center; margin-top: 10px;">
         <!-- Zone de jeu principale -->
         <div style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center;">
-            <p id="snake-instructions">Suivez les flèches pour guider votre serpent et mangez les pommes rouges !</p>
+            <p id="snake-instructions">Suivez les flèches pour guider votre serpent et mangez les pommes rouges !
+                <br>Apple nous attaque ! Après les rumeurs d’obsolescence programmée, <br>voilà qu’ils s’en prennent directement à nos appareils ! <br>Prépare-toi à combattre les ralentissements, les batteries fatiguées<br> et les applis gourmandes pour survivre !
+            </p>
             <canvas id="snake-canvas" width="300" height="300" style="border: 2px solid #DDEB9D; margin: 20px 0;"></canvas>
             <div id="snake-score" style="font-size: 1.2rem; font-weight: bold; margin: 10px 0;">Score : 0</div>
             <div id="snake-controls" style="display: flex; gap: 10px; margin-top: 10px;">
@@ -56,13 +58,13 @@ $idx = min($level, 7);
             <strong style="display: block; margin-bottom: 10px; color: #A0C878;">💡 Le saviez-vous ?</strong>
             <span id="rotating-message-snake"><?php echo nl2br(htmlspecialchars($msgs[$idx])); ?></span>
         </div>
-    <p id="snake-instructions">Apple nous attaque ! Après les rumeurs d’obsolescence programmée, voilà qu’ils s’en prennent directement à nos appareils ! Prépare-toi à combattre les ralentissements, les batteries fatiguées et les applis gourmandes pour survivre !</p>
+    <p id="snake-instructions"></p>
     <canvas id="snake-canvas" width="300" height="300"></canvas>
-    <div id="snake-score">Score : 0</div>
+    <!--<div id="snake-score">Score : 0</div>
     <div id="snake-controls">
         <button id="snake-start">Start</button>
         <button id="snake-reset">Reset</button>
-    </div>
+    </div>-->
 </div>
 
 <script src="public/js/snake.js" defer></script>

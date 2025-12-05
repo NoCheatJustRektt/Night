@@ -15,46 +15,122 @@ $CELL_SIZE = 30;
     <meta charset="utf-8">
     <title>Tetris</title>
     <style>
-        body { font-family: Arial, sans-serif; background:#f0f0f0; padding:8px; }
-        .controls { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;     justify-content: center;}
-        .controls button { padding:6px 10px; }
-        .gamebox { display:flex; gap:12px; align-items:flex-start; justify-content:center; padding-top:5px; }
-        .panel { background:white; padding:8px; border:1px solid #ddd; border-radius:6px; }
-        .small { font-size:0.9em; color:#333;  }
-        #tetris { border:1px solid #ccc; margin: 0 auto; display: block;}
+        body { 
+            font-family: Arial, sans-serif; 
+            background: transparent; 
+            padding: 0;
+            margin: 0;
+        }
+        
+        #tetris-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #DDEB9D;
+            margin-bottom: 20px;
+        }
+        
+        .gamebox { 
+            display: flex; 
+            gap: 20px; 
+            align-items: flex-start; 
+            justify-content: center; 
+            margin-top: 10px;
+        }
+        
+        .game-area {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #tetris { 
+            border: 2px solid #DDEB9D; 
+            margin: 0 auto; 
+            display: block;
+            background: #ffffffff;
+        }
+        
+        .controls { 
+            margin-top: 15px; 
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        .controls button { 
+            padding: 8px 15px;
+            background: #4c79ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .controls button:hover {
+            background: #3760b5;
+        }
+        
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #DDEB9D;
+        }
+        
+        .instructions {
+            width: 250px;
+            padding: 15px;
+            background: rgba(221, 235, 157, 0.1);
+            border: 2px solid #DDEB9D;
+            border-radius: 10px;
+            color: #DDEB9D;
+            text-align: left;
+            line-height: 1.6;
+            font-size: 13px;
+            height: fit-content;
+        }
+        
+        .instructions strong {
+            color: #A0C878;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 5px 0;
+        }
 
         .message-box {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 280px;
-            padding: 12px;
-            background: #fff;
-            color: #000;
-            border: 4px solid #000;
-            font-family: "Courier New", monospace;
-            font-size: 14px;
-            line-height: 16px;
-            text-align: center;
-            image-rendering: pixelated;
-            box-shadow: 0 0 0 4px #fff, 0 0 0 6px #000;
-            opacity: 0;
-            transition: display 0.5s ease-in-out;
+            width: 250px;
+            padding: 15px;
+            background: rgba(221, 235, 157, 0.1);
+            border: 2px solid #DDEB9D;
+            border-radius: 10px;
+            color: #DDEB9D;
+            text-align: left;
+            line-height: 1.6;
+            font-size: 13px;
+            height: fit-content;
+            margin-top: 20px;
         }
 
-        .message-box.show {
-            animation: popupFade 4.5s forwards;
-        }
-
-        @keyframes popupFade {
-            0%   { opacity: 0; transform: translate(-50%, -60%); }
-            10%  { opacity: 1; transform: translate(-45%, -50%); }
-            30%  {  transform: translate(-50%, -50%); }
-            50%  {  transform: translate(-45%, -50%); }
-            70%  { transform: translate(-50%, -50%); }
-            90%  { opacity: 1; transform: translate(-45%, -50%); }
-            100% { opacity: 0; transform: translate(-50%, -40%); }
+        .message-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #A0C878;
         }
     </style>
     <script>
@@ -88,41 +164,46 @@ $CELL_SIZE = 30;
         }
     </script>
 </head>
-</div>
-<body >
+<body>
+    <div id="tetris-container">
+        <h2>🕹️ Tetris - Niveau Facile</h2>
+        
+        <div class="gamebox">
+            <div class="game-area">
+                <div class="score-display">
+                    ⭐ Score: <span id="score">0</span> | 🚀 Lignes: <span id="lines">0</span>
+                </div>
+                <canvas id="tetris" width="300" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="startGame()">▶ Start</button>
+                    <button onclick="pauseGame()">⏸ Pause</button>
+                    <button onclick="resetGame()">🔄 Replay</button>
+                    <button onclick="moveLeft()">⬅</button>
+                    <button onclick="moveRight()">➡</button>
+                    <button onclick="moveDown()">⬇</button>
+                    <button onclick="rotate()">🔁 Rotate</button>
+                </div>
+            </div>
 
-<div class="gamebox">
-    <div class="panel">
-        <canvas id="tetris" width="300" height="600"></canvas>
-        <div class="controls">
-            <button onclick="moveLeft()">← Gauche</button>
-            <button onclick="moveRight()">Droite →</button>
-            <button onclick="rotatePiece()">Rotate ⟳</button>
-            <button onclick="moveDown()">Drop ⇩</button>
-            <button onclick="resetGame()">Reset</button>
-            <button onclick="GAME_LOOP_RUNNING = true; requestAnimationFrame(gameLoop)">Launch game</button>
+            <div>
+                <div class="instructions">
+                    <strong>🎮 Contrôles</strong>
+                    <ul>
+                        <li>⬅➡ : Gauche/Droite</li>
+                        <li>⬇ : Descendre</li>
+                        <li>🔁 : Tourner la pièce</li>
+                    </ul>
+                    <strong>🎯 Objectif</strong>
+                    <p>Complète des lignes pour gagner des points. Atteins 50 points pour valider la zone !</p>
+                </div>
+                
+                <div class="message-box" id="rotating-message-tetris" style="opacity: 1; transition: opacity 0.5s;">
+                    <strong>💡 Le savais-tu ?</strong>
+                    <p id="message-content-tetris"></p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="small">
-        <div><strong>            Score : </strong> <span id="score">0</span></div>
-        <div><strong>Score à atteindre : </strong> <span>1 000</span></div>
-        <div><strong>           Lignes : </strong> <span id="lines">0</span></div>
-        <br>
-        <div>
-
-            Contrôles :
-            <ul>
-                <li>Flèche Gauche : Déplacer à gauche</li>
-                <li>Flèche Droite : Déplacer à droite</li>
-                <li>Flèche Haut : Tourner la pièce sens horaire</li>
-                <li>Flèche Bas : Tourner le piece sens antihoraire</li>
-                <li>Espace : Faire tomber la pièce</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="message-box" id="popup"></div>
 
 <script>
     let GAME_LOOP_RUNNING = true;
@@ -159,13 +240,13 @@ $CELL_SIZE = 30;
 
     const pieceImages = {};
     const imageSources = {
-        0: "/images/microsoft/update.jpeg",// I
-        1: "/images/microsoft/server.png", // O
-        2: "/images/microsoft/usb.png", // T
-        3: "/images/microsoft/candy-crush.jpg",// S
-        4: "/images/microsoft/menu.jpg",// Z
-        5: "/images/microsoft/laptop-on-fire.png",// L
-        6: "/images/microsoft/buy-office.jpg",// J
+        0: "images/microsoft/update.jpeg",// I
+        1: "images/microsoft/server.png", // O
+        2: "images/microsoft/usb.png", // T
+        3: "images/microsoft/candy-crush.jpg",// S
+        4: "images/microsoft/menu.jpg",// Z
+        5: "images/microsoft/laptop-on-fire.png",// L
+        6: "images/microsoft/buy-office.jpg",// J
     };
 
     for (const type in imageSources) {
@@ -215,9 +296,6 @@ $CELL_SIZE = 30;
                 removed++;
                 y++;
             }
-            if (linesClearedTotal%3===0 && linesClearedTotal>0) {
-                showPopup(getRandomMessage());
-            }
         }
         if(removed>0) {
             linesClearedTotal += removed;
@@ -229,7 +307,7 @@ $CELL_SIZE = 30;
         }
         // Win condition
         if(scoreTetris >= 50) {
-            showPopup("Bravo vous avez vaincu microsoft.", 5000);
+            alert("🎉 Bravo ! Vous avez vaincu Microsoft !");
             
             // Mettre à jour la session et la couleur sur la carte
             fetch('public/api/updateGameStatus.php', {
@@ -258,15 +336,6 @@ $CELL_SIZE = 30;
         }
     }
 
-    function showPopup(text, duration = 5000) {
-        const popup = document.getElementById("popup");
-        popup.innerText = text;
-        popup.classList.add("show");
-        setTimeout(() => {
-            popup.classList.remove("show");
-        }, duration);
-    }
-
 
     function rotatePiece(nb = 1) {
         let rotated;
@@ -284,8 +353,26 @@ $CELL_SIZE = 30;
     function moveLeft(){ if(!collide(piece.x-1,piece.y)) piece.x--; }
     function moveRight(){ if(!collide(piece.x+1,piece.y)) piece.x++; }
     function moveDown(){ if(!collide(piece.x,piece.y+1)) piece.y++; }
+    function rotate() { rotatePiece(); }
+    
+    let gameRunning = false;
+    
+    function startGame() {
+        if (!gameRunning) {
+            gameRunning = true;
+            GAME_LOOP_RUNNING = true;
+            requestAnimationFrame(gameLoop);
+        }
+    }
+    
+    function pauseGame() {
+        gameRunning = false;
+        GAME_LOOP_RUNNING = false;
+    }
+    
     function resetGame(){
         GAME_LOOP_RUNNING = false;
+        gameRunning = false;
         gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
         linesClearedTotal = 0;
         scoreTetris = 0;
@@ -293,13 +380,6 @@ $CELL_SIZE = 30;
         document.getElementById("lines").innerText = linesClearedTotal;
         piece = newPiece();
         lastFall = 0;
-        let intervalId = setInterval(() => {
-            if (!GAME_LOOP_RUNNING) {
-                clearInterval(intervalId);
-                return;
-            }
-            showPopup(getRandomMessage());
-        }, 1000);
     }
 
     document.addEventListener("keydown",(e)=>{
@@ -334,6 +414,34 @@ $CELL_SIZE = 30;
 
     resetGame()
     drawgridTetris()
+</script>
+
+<script>
+    // Message rotation for Tetris
+    (function() {
+        const messageBox = document.getElementById('rotating-message-tetris');
+        const messageContent = document.getElementById('message-content-tetris');
+        let currentIndex = 0;
+        
+        function rotateMessage() {
+            messageBox.style.opacity = '0';
+            
+            setTimeout(() => {
+                messageContent.textContent = messagesTetris[currentIndex];
+                messageBox.style.opacity = '1';
+                currentIndex = (currentIndex + 1) % messagesTetris.length;
+            }, 500);
+        }
+        
+        // Initialize with first message
+        messageContent.textContent = messagesTetris[0];
+        currentIndex = 1;
+        
+        // Rotate every 5 seconds
+        setInterval(rotateMessage, 5000);
+        
+        console.log("🕹️ Rotation des messages Tetris activée");
+    })();
 </script>
 
 <script>

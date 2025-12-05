@@ -42,7 +42,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
     <!-- Particules d'arrière-plan -->
     <canvas id="particles"></canvas>
     
-    <div class="container">
+    <div class="container" id="container1">
         <!-- Titre principal -->
         <header class="page-header">
             <h1 class="glitch" data-text="Carte du Village">Carte du Village</h1>
@@ -273,7 +273,61 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
         </div>
     </div>
     
+    <script>
+        // Rafraîchir la page quand la modal est fermée
+        const gameModalElement = document.getElementById('gameModal');
+        if (gameModalElement) {
+            gameModalElement.addEventListener('hidden.bs.modal', function () {
+                console.log('🔄 Modal fermée, rafraîchissement de la page...');
+                location.reload();
+            });
+        }
+    </script>
+
+    <div class="container2" id="container2" style="display: none;">
+        <img src="images/map.png" />
+        <header class="page-header">
+            <h1 class="glitch" data-text="Félicitations !">Félicitations !</h1>
+            <p class="header-subtitle">Vous avez terminé tous les défis ! 🎉</p>
+        </header>
+    </div>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Fonction pour vérifier si toutes les zones sont vertes
+        function checkAllZonesComplete() {
+            const zones = ['zone1', 'zone2', 'zone3', 'zone4'];
+            const allGreen = zones.every(zoneClass => {
+                const marker = document.querySelector(`.legend-marker.${zoneClass}`);
+                if (!marker) return false;
+                const bgColor = marker.style.background.toLowerCase();
+                return bgColor === 'green' || bgColor === 'rgb(0, 128, 0)';
+            });
+            
+            if (allGreen) {
+                console.log('🎉 Toutes les zones sont complétées !');
+                // Faire disparaître container1 et apparaître container2
+                document.getElementById('container1').style.display = 'none';
+                document.getElementById('container2').style.display = 'block';
+            }
+        }
+        
+        // Fonction améliorée updateLegendColor qui vérifie après chaque mise à jour
+        function updateLegendColor(zoneClass, color) {
+            const legendMarker = document.querySelector(`.legend-marker.${zoneClass}`);
+            if (legendMarker) {
+                legendMarker.style.background = color;
+                console.log(`🎨 Couleur de ${zoneClass} mise à jour en ${color}`);
+                
+                // Vérifier si toutes les zones sont complètes
+                setTimeout(checkAllZonesComplete, 500);
+            }
+        }
+        
+        // Vérifier au chargement de la page
+        window.addEventListener('load', checkAllZonesComplete);
+    </script>
 </body>
 </html>
