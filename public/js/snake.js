@@ -161,7 +161,7 @@ function drawWin() {
         if (data.success) {
             console.log('✅ Statut du jeu mis à jour:', data);
             // Mettre à jour visuellement la légende sur la page
-            updateLegendColor('zone3', 'green');
+            updateLegendColor('zone2', 'green');
         } else {
             console.error('❌ Erreur lors de la mise à jour:', data.error);
         }

@@ -22,7 +22,6 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/">
     <title>No Fork Village - Carte Interactive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,7 +75,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#infos" 
                           alt="infos"
                           title="Informations"
-                          onclick="openGameModal('src/view/infos', '🐍 Zone 2 - Snake'); return false;">
+                          onclick="openGameModal('src/view/infos', 'Zone 1 - Informations'); return false;">
                     
                     
                     <area shape="circle" 
@@ -84,7 +83,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#Port" 
                           alt="Port"
                           title="Port"
-                          onclick="openGameModal('src/view/snake-widget.php', '🐍 Zone 2 - Snake'); return false;">
+                          onclick="openGameModal('src/view/snake-widget.php', 'Zone 2 - Snake'); return false;">
                     
                     
                     <area shape="rect" 
@@ -92,7 +91,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#Centre Ville" 
                           alt="Centre Ville"
                           title="Centre ville"
-                          onclick="openGameModal('src/view/pong-widget.php', 'Zone 3 - Pacman'); return false;">
+                          onclick="openGameModal('src/view/pong-widget.php', 'Zone 3 - Pong'); return false;">
                     
                     
                     <area shape="circle" 
@@ -100,7 +99,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#Dojo" 
                           alt="Dojo"
                           title="Dojo"
-                          onclick="openGameModal('src/model/tetris.php', '🎮 Zone 1 - Tetris'); return false;">
+                          onclick="openGameModal('src/model/tetris.php', 'Zone 4 - Tetris'); return false;">
                 </map>
                 
                 <!-- Indicateur de zone survolée -->

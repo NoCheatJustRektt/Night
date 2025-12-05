@@ -70,7 +70,33 @@ function update() {
 
     // condition de victoire/défaite
     if(playerScore >= 3) {
-        alert("🎉 Vous avez gagné !");
+        //alert("🎉 Vous avez gagné !");
+        
+        // Mettre à jour la session et la couleur sur la carte
+        fetch('public/api/updateGameStatus.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                game: 'pong',
+                color: 'green'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('✅ Statut du jeu mis à jour:', data);
+                // Mettre à jour visuellement la légende sur la page
+                updateLegendColor('zone3', 'green');
+            } else {
+                console.error('❌ Erreur lors de la mise à jour:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('❌ Erreur réseau:', error);
+        });
+        
         endGame();
         return;
     }
@@ -149,5 +175,14 @@ document.getElementById("pong-reset").addEventListener("click", () => {
 // Init
 // --------------------
 draw();
+
+// Fonction pour mettre à jour la couleur dans la légende
+function updateLegendColor(zoneClass, color) {
+    const legendMarker = document.querySelector(`.legend-marker.${zoneClass}`);
+    if (legendMarker) {
+        legendMarker.style.background = color;
+        console.log(`🎨 Couleur de ${zoneClass} mise à jour en ${color}`);
+    }
+}
 
 
