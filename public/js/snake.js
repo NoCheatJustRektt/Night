@@ -1,9 +1,9 @@
-const canvas = document.getElementById("snake-canvas");
-const ctx = canvas.getContext("2d");
+const canvasSnake = document.getElementById("snake-canvas");
+const ctxSnake = canvasSnake.getContext("2d");
 
-const grid = 15;
-const rows = canvas.height / grid;
-const cols = canvas.width / grid;
+const gridSnake = 15;
+const rows = canvasSnake.height / gridSnake;
+const cols = canvasSnake.width / gridSnake;
 
 let snake, food, dx, dy, nextDx, nextDy, score, gameOver, gameStarted;
 let gameInterval = null;
@@ -27,8 +27,8 @@ function initGame() {
 // Dessiner une case
 // --------------------
 function drawCell(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x * grid, y * grid, grid - 1, grid - 1);
+    ctxSnake.fillStyle = color;
+    ctxSnake.fillRect(x * gridSnake, y * gridSnake, gridSnake - 1, gridSnake - 1);
 }
 
 // --------------------
@@ -46,16 +46,16 @@ function spawnFood() {
 // Dessiner tout le canvas
 // --------------------
 function draw() {
-    ctx.fillStyle = "#111";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctxSnake.fillStyle = "#111";
+    ctxSnake.fillRect(0, 0, canvasSnake.width, canvasSnake.height);
 
     if (!gameStarted) {
         // message "Click to Start" centré
-        ctx.fillStyle = "white";
-        ctx.font = "bold 18px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("Click START to play!", canvas.width / 2, canvas.height / 2);
+        ctxSnake.fillStyle = "white";
+        ctxSnake.font = "bold 18px Arial";
+        ctxSnake.textAlign = "center";
+        ctxSnake.textBaseline = "middle";
+        ctxSnake.fillText("Click START to play!", canvasSnake.width / 2, canvasSnake.height / 2);
         return;
     }
 
@@ -68,9 +68,9 @@ function draw() {
 
 // Fonction pour dessiner une pomme
 function drawApple(x, y) {
-    const targetSize = grid; // la taille d'une case
-    const offsetX = x * grid;
-    const offsetY = y * grid;
+    const targetSize = gridSnake; // la taille d'une case
+    const offsetX = x * gridSnake;
+    const offsetY = y * gridSnake;
 
     const pathData = "M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z";
     const path = new Path2D(pathData);
@@ -78,12 +78,12 @@ function drawApple(x, y) {
     // calcul de l’échelle pour rentrer dans une case
     const scaleFactor = targetSize / 800; // 800 ≈ largeur originale du path SVG
 
-    ctx.save();
-    ctx.translate(offsetX, offsetY);       // position case
-    ctx.scale(scaleFactor, scaleFactor);   // réduction
-    ctx.fillStyle = "#ff0000";             // rouge
-    ctx.fill(path);
-    ctx.restore();
+    ctxSnake.save();
+    ctxSnake.translate(offsetX, offsetY);       // position case
+    ctxSnake.scale(scaleFactor, scaleFactor);   // réduction
+    ctxSnake.fillStyle = "#ff0000";             // rouge
+    ctxSnake.fill(path);
+    ctxSnake.restore();
 }
 
 // --------------------
@@ -137,13 +137,13 @@ function update() {
 // --------------------
 function drawWin() {
     draw();
-    ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "lime";
-    ctx.font = "bold 22px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("YOU WIN!", canvas.width / 2, canvas.height / 2);
+    ctxSnake.fillStyle = "rgba(0,0,0,0.6)";
+    ctxSnake.fillRect(0, 0, canvasSnake.width, canvasSnake.height);
+    ctxSnake.fillStyle = "lime";
+    ctxSnake.font = "bold 22px Arial";
+    ctxSnake.textAlign = "center";
+    ctxSnake.textBaseline = "middle";
+    ctxSnake.fillText("YOU WIN!", canvasSnake.width / 2, canvasSnake.height / 2);
 }
 
 
@@ -152,13 +152,13 @@ function drawWin() {
 // --------------------
 function drawGameOver() {
     draw();
-    ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-    ctx.font = "bold 20px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+    ctxSnake.fillStyle = "rgba(0,0,0,0.6)";
+    ctxSnake.fillRect(0, 0, canvasSnake.width, canvasSnake.height);
+    ctxSnake.fillStyle = "white";
+    ctxSnake.font = "bold 20px Arial";
+    ctxSnake.textAlign = "center";
+    ctxSnake.textBaseline = "middle";
+    ctxSnake.fillText("GAME OVER", canvasSnake.width / 2, canvasSnake.height / 2);
 }
 
 // --------------------

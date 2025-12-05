@@ -162,9 +162,9 @@ function createZoneOverlays() {
             height = maxY - minY;
         }
 
-        // Canvas pour le flou
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        // canvas pour le flou
+        const canvasMap = document.createElement('canvas');
+        const ctxMap = canvasMap.getContext('2d');
 
         // Obtenir les dimensions réelles de l'image affichée
         const imgRect = mapImage.getBoundingClientRect();
@@ -205,30 +205,30 @@ function createZoneOverlays() {
         const scaledHeight = height * scaleY;
 
         // Dimensions exactes de la zone affichée
-        canvas.width = scaledWidth;
-        canvas.height = scaledHeight;
-        canvas.style.position = 'absolute';
-        canvas.style.left = scaledLeft + 'px';
-        canvas.style.top = scaledTop + 'px';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.opacity = '0';
-        canvas.style.transition = 'opacity 0.4s ease';
-        canvas.style.zIndex = '5';
-        canvas.style.filter = 'blur(2px)';
+        canvasMap.width = scaledWidth;
+        canvasMap.height = scaledHeight;
+        canvasMap.style.position = 'absolute';
+        canvasMap.style.left = scaledLeft + 'px';
+        canvasMap.style.top = scaledTop + 'px';
+        canvasMap.style.pointerEvents = 'none';
+        canvasMap.style.opacity = '0';
+        canvasMap.style.transition = 'opacity 0.4s ease';
+        canvasMap.style.zIndex = '5';
+        canvasMap.style.filter = 'blur(2px)';
 
         if (shape === 'circle') {
-            canvas.style.borderRadius = '50%';
+            canvasMap.style.borderRadius = '50%';
         }
 
         try {
             // Dessiner exactement la portion d'image correspondante
-            ctx.drawImage(
+            ctxMap.drawImage(
                 mapImage,
                 left, top, width, height,           // Source: coordonnées dans l'image naturelle
                 0, 0, scaledWidth, scaledHeight     // Destination: taille affichée
             );
         } catch (e) {
-            console.error('Erreur canvas:', e);
+            console.error('Erreur canvasMap:', e);
         }
 
         // Overlay coloré
@@ -250,12 +250,12 @@ function createZoneOverlays() {
             overlay.style.borderRadius = '50%';
         }
 
-        mapContainer.appendChild(canvas);
+        mapContainer.appendChild(canvasMap);
         mapContainer.appendChild(overlay);
 
         // Afficher au survol
         area.addEventListener('mouseenter', () => {
-            canvas.style.opacity = '0.9';
+            canvasMap.style.opacity = '0.9';
             overlay.style.opacity = '1';
             overlay.style.backgroundColor = Object.values(zoneData)[index].color + '30';
             overlay.style.boxShadow = '0 0 40px ' + Object.values(zoneData)[index].color;
@@ -263,7 +263,7 @@ function createZoneOverlays() {
         });
 
         area.addEventListener('mouseleave', () => {
-            canvas.style.opacity = '0';
+            canvasMap.style.opacity = '0';
             overlay.style.opacity = '0';
             overlay.style.transform = 'scale(1)';
         });

@@ -5,4 +5,4 @@
 header('Content-Type: text/html');
 
 // On inclut la vue qui contient le HTML du Snake
-require __DIR__ . '/../view/snake-view.php';
+require __DIR__ . '/../view/snake-widget.php';

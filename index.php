@@ -26,89 +26,16 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* CSS de secours si le fichier externe ne charge pas */
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #143D60 0%, #27667B 50%, #143D60 100%);
-            color: #DDEB9D;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .page-header {
-            text-align: center;
-            padding: 2rem 0;
-        }
-        .page-header h1 {
-            color: #DDEB9D;
-            font-size: 2.5rem;
-            text-shadow: 0 0 20px rgba(221, 235, 157, 0.5);
-        }
-        .context-section, .map-section, .info-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(221, 235, 157, 0.2);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .context-section h2, .map-legend h3, .info-section h3 {
-            color: #DDEB9D;
-            margin-bottom: 1rem;
-        }
-        .context-section p, .info-section p {
-            color: rgba(221, 235, 157, 0.9);
-            line-height: 1.8;
-        }
-        .map-container {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-        #village-map-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .map-legend ul {
-            list-style: none;
-            padding: 0;
-        }
-        .map-legend li {
-            color: rgba(221, 235, 157, 0.9);
-            padding: 0.5rem 0;
-        }
-        .legend-marker {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .legend-marker.zone1 { background: #DDEB9D; }
-        .legend-marker.zone2 { background: #A0C878; }
-        .legend-marker.zone3 { background: #27667B; }
-        .legend-marker.zone4 { background: linear-gradient(135deg, #A0C878, #DDEB9D); }
-        .debug-info {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid red;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 10px;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/chatbot.css">
+    <script src="public/js/chatbot.js" defer></script>
+    
 </head>
 <body>
 
@@ -121,7 +48,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
             <h1 class="glitch" data-text="Carte du Village">Carte du Village</h1>
             <p class="header-subtitle"><span id="typewriter"></span><span class="cursor-sub">|</span></p>
         </header>
-
+        <?php include "src/view/chatbot-widget.php"; ?>
         <!-- Zone de contexte -->
         <section class="context-section">
             <h2>Explorez No Fork Village</h2>
@@ -139,7 +66,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
         <!-- Image Map Interactive -->
         <section class="map-section">
             <div class="map-container">
-                <img src="../images/map1.jpg" 
+                <img src="images/map1.jpg" 
                      alt="Carte interactive du village" 
                      usemap="#village-map"
                      id="village-map-image"
@@ -148,7 +75,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                 <map name="village-map">
                     
                     <area shape="rect" 
-                          coords="300,50,700,200" 
+                          coords="360,30,660,170" 
                           href="#zone1" 
                           alt="Zone 1"
                           title="Zone 1 - Cliquez pour jouer à Tetris"
@@ -156,11 +83,11 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                     
                     
                     <area shape="circle" 
-                          coords="400,300,80" 
+                          coords="360,300,80" 
                           href="#zone2" 
                           alt="Zone 2"
-                          title="Zone 2 - Place centrale"
-                          onclick="handleMapClick('Zone 2'); return false;">
+                          title="Zone 2 - Cliquez pour jouer à Snake"
+                          onclick="openGameModal('src/view/snake-widget.php', '🐍 Zone 2 - Snake'); return false;">
                     
                     
                     <area shape="rect" 
@@ -203,8 +130,8 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
         </section>
     </div>
 
-    <script src="animations.js"></script>
-    <script src="map-interactions.js"></script>
+    <script src="public/js/animations.js"></script>
+    <script src="public/js/map-interactions.js"></script>
     
     <script>
         // Debug: Vérifier si les scripts se chargent
@@ -234,34 +161,69 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
             this.style.alignItems = 'center';
             this.style.justifyContent = 'center';
         });
-        
-        // Fonction pour ouvrir la modal Tetris et charger le contenu
-        function openTetrisModal() {
-            // Ouvrir la modal
-            const modal = new bootstrap.Modal(document.getElementById('tetrisModal'));
+
+        /**
+         * -----------------------------------------
+         *   🚀 FIX : openGameModal exécute les JS
+         * -----------------------------------------
+         */
+        function openGameModal(filePath, modalTitle = 'Contenu') {
+
+            const modal = new bootstrap.Modal(document.getElementById('gameModal'));
+            document.getElementById('gameModalLabel').textContent = modalTitle;
+
+            // Loader
+            document.getElementById('gameModalBody').innerHTML = `
+                <div class="text-center">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                </div>
+            `;
+
             modal.show();
-            
-            // Charger le contenu de tetris.php
-            fetch('model/tetris.php')
+
+            // Chargement du fichier
+            fetch(filePath)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erreur de chargement');
-                    }
+                    if (!response.ok) throw new Error('Erreur de chargement');
                     return response.text();
                 })
                 .then(html => {
-                    document.getElementById('tetrisModalBody').innerHTML = html;
+
+                    const container = document.getElementById('gameModalBody');
+                    container.innerHTML = html;
+
+                    // ⚠️ Extraire et exécuter les <script> contenus dans le fichier
+                    const scripts = container.querySelectorAll("script");
+                    scripts.forEach((oldScript) => {
+                        const newScript = document.createElement("script");
+
+                        if (oldScript.src) {
+                            newScript.src = oldScript.src; // Script externe
+                        } else {
+                            newScript.textContent = oldScript.innerHTML; // Script inline
+                        }
+
+                        document.body.appendChild(newScript);
+                        oldScript.remove();
+                    });
                 })
                 .catch(error => {
-                    document.getElementById('tetrisModalBody').innerHTML = `
+                    document.getElementById('gameModalBody').innerHTML = `
                         <div class="alert alert-danger" role="alert">
-                            ❌ Erreur lors du chargement de Tetris: ${error.message}
+                            ❌ Erreur lors du chargement: ${error.message}
                         </div>
                     `;
                 });
         }
+
+        // Compatibilité ancienne fonction
+        function openTetrisModal() {
+            openGameModal('src/model/tetris.php', '🎮 Zone 1 - Tetris');
+        }
         
-        // Fonction pour ajuster les coordonnées de la map selon la taille de l'image
+        // Fonction pour ajuster les coordonnées de la map
         function rescaleImageMap() {
             const img = document.getElementById('village-map-image');
             const map = document.querySelector('map[name="village-map"]');
@@ -281,12 +243,10 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
             areas.forEach(area => {
                 const originalCoords = area.dataset.originalCoords || area.getAttribute('coords');
                 
-                // Sauvegarder les coordonnées originales si pas déjà fait
                 if (!area.dataset.originalCoords) {
                     area.dataset.originalCoords = originalCoords;
                 }
                 
-                // Rescaler les coordonnées
                 const coords = originalCoords.split(',').map(Number);
                 const scaledCoords = coords.map((coord, index) => {
                     return Math.round(coord * (index % 2 === 0 ? scaleX : scaleY));
@@ -300,24 +260,22 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
         const mapImg = document.getElementById('village-map-image');
         if (mapImg) {
             mapImg.addEventListener('load', rescaleImageMap);
-            if (mapImg.complete) {
-                rescaleImageMap();
-            }
+            if (mapImg.complete) rescaleImageMap();
         }
         
-        // Réajuster au redimensionnement de la fenêtre
         window.addEventListener('resize', rescaleImageMap);
     </script>
 
-    <!-- Modal pour Tetris -->
-    <div class="modal fade" id="tetrisModal" tabindex="-1" aria-labelledby="tetrisModalLabel" aria-hidden="true">
+
+    <!-- Modal générique pour les jeux et contenus -->
+    <div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content" style="background: rgba(20, 61, 96, 0.95); border: 2px solid #DDEB9D;">
                 <div class="modal-header" style="border-bottom: 1px solid rgba(221, 235, 157, 0.3);">
-                    <h5 class="modal-title" id="tetrisModalLabel" style="color: #DDEB9D;">🎮 Zone 1 - Tetris</h5>
+                    <h5 class="modal-title" id="gameModalLabel" style="color: #DDEB9D;">Contenu</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="tetrisModalBody" style="color: #DDEB9D;">
+                <div class="modal-body" id="gameModalBody" style="color: #DDEB9D;">
                     <div class="text-center">
                         <div class="spinner-border text-light" role="status">
                             <span class="visually-hidden">Chargement...</span>
