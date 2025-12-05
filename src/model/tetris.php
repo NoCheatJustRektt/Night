@@ -131,7 +131,7 @@ $CELL_SIZE = 30;
 
     let gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
     let linesClearedTotal = 0;
-    let score = 0;
+    let scoreTetris = 0;
 
     const pieces = [
         { type: 0, shape: [[1,1,1,1]] }, // I
@@ -221,14 +221,14 @@ $CELL_SIZE = 30;
         }
         if(removed>0) {
             linesClearedTotal += removed;
-            if(removed===1) score +=50;
-            else if(removed===2) score +=150;
-            else if(removed>=3) score +=250;
-            document.getElementById("score").innerText = score;
+            if(removed===1) scoreTetris +=50;
+            else if(removed===2) scoreTetris +=150;
+            else if(removed>=3) scoreTetris +=250;
+            document.getElementById("score").innerText = scoreTetris;
             document.getElementById("lines").innerText = linesClearedTotal;
         }
         // Win condition
-        if(score >= 1000) {
+        if(scoreTetris >= 1000) {
             showPopup("Bravo vous avez vaincu microsoft.", 5000);
         }
     }
@@ -263,8 +263,8 @@ $CELL_SIZE = 30;
         GAME_LOOP_RUNNING = false;
         gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
         linesClearedTotal = 0;
-        score = 0;
-        document.getElementById("score").innerText = score;
+        scoreTetris = 0;
+        document.getElementById("score").innerText = scoreTetris;
         document.getElementById("lines").innerText = linesClearedTotal;
         piece = newPiece();
         lastFall = 0;
