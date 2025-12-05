@@ -1,15 +1,15 @@
 <?php
 session_start();
-$GRID_WIDTH = 10;
-$GRID_HEIGHT = 20;
+$gridTetris_WIDTH = 10;
+$gridTetris_HEIGHT = 20;
 $CELL_SIZE = 30;
 ?>
 <!doctype html>
 <html lang="fr">
 <?php
 echo "<script>
-    const GRID_WIDTH = $GRID_WIDTH;
-    const GRID_HEIGHT = $GRID_HEIGHT;
+    const gridTetris_WIDTH = $gridTetris_WIDTH;
+    const gridTetris_HEIGHT = $gridTetris_HEIGHT;
     const CELL_SIZE = $CELL_SIZE;
 </script>";
 ?>
@@ -92,10 +92,10 @@ $idx = min($level, 7);
         <canvas id="tetris" width="300" height="600"></canvas>
 
         <script>
-            const canvas = document.getElementById("tetris");
-            const ctx = canvas.getContext("2d");
+            const canvasTetris = document.getElementById("tetris");
+            const ctxTetris = canvasTetris.getContext("2d");
 
-            let grid = Array.from({ length: GRID_HEIGHT }, () => Array(GRID_WIDTH).fill(0));
+            let gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
             let linesCleared = 0;
 
             const pieces = [
@@ -113,7 +113,7 @@ $idx = min($level, 7);
                 const shape = pieces[Math.floor(Math.random() * pieces.length)];
                 return {
                     shape: shape.map(r => [...r]),
-                    x: Math.floor(GRID_WIDTH / 2 - shape[0].length / 2),
+                    x: Math.floor(gridTetris_WIDTH / 2 - shape[0].length / 2),
                     y: 0
                 };
             }
@@ -122,14 +122,14 @@ $idx = min($level, 7);
             let lastFall = 0;
             const SPEED = 500;
 
-            function drawGrid() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            function drawgridTetris() {
+                ctxTetris.clearRect(0, 0, canvasTetris.width, canvasTetris.height);
 
-                for (let y = 0; y < GRID_HEIGHT; y++) {
-                    for (let x = 0; x < GRID_WIDTH; x++) {
-                        if (grid[y][x]) {
-                            ctx.fillStyle = "black";
-                            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                for (let y = 0; y < gridTetris_HEIGHT; y++) {
+                    for (let x = 0; x < gridTetris_WIDTH; x++) {
+                        if (gridTetris[y][x]) {
+                            ctxTetris.fillStyle = "black";
+                            ctxTetris.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         }
                     }
                 }
@@ -137,8 +137,8 @@ $idx = min($level, 7);
                 for (let y = 0; y < piece.shape.length; y++) {
                     for (let x = 0; x < piece.shape[y].length; x++) {
                         if (piece.shape[y][x]) {
-                            ctx.fillStyle = "red";
-                            ctx.fillRect((piece.x + x) * CELL_SIZE, (piece.y + y) * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                            ctxTetris.fillStyle = "red";
+                            ctxTetris.fillRect((piece.x + x) * CELL_SIZE, (piece.y + y) * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         }
                     }
                 }
@@ -149,9 +149,9 @@ $idx = min($level, 7);
                     for (let x = 0; x < shape[y].length; x++) {
                         if (!shape[y][x]) continue;
 
-                        if (py + y >= GRID_HEIGHT) return true;
-                        if (px + x < 0 || px + x >= GRID_WIDTH) return true;
-                        if (grid[py + y][px + x]) return true;
+                        if (py + y >= gridTetris_HEIGHT) return true;
+                        if (px + x < 0 || px + x >= gridTetris_WIDTH) return true;
+                        if (gridTetris[py + y][px + x]) return true;
                     }
                 }
                 return false;
@@ -161,7 +161,7 @@ $idx = min($level, 7);
                 for (let y = 0; y < piece.shape.length; y++) {
                     for (let x = 0; x < piece.shape[y].length; x++) {
                         if (piece.shape[y][x]) {
-                            grid[piece.y + y][piece.x + x] = 1;
+                            gridTetris[piece.y + y][piece.x + x] = 1;
                         }
                     }
                 }
@@ -169,10 +169,10 @@ $idx = min($level, 7);
 
             function clearLines() {
                 let removed = 0;
-                for (let y = GRID_HEIGHT - 1; y >= 0; y--) {
-                    if (grid[y].every(v => v)) {
-                        grid.splice(y, 1);
-                        grid.unshift(Array(GRID_WIDTH).fill(0));
+                for (let y = gridTetris_HEIGHT - 1; y >= 0; y--) {
+                    if (gridTetris[y].every(v => v)) {
+                        gridTetris.splice(y, 1);
+                        gridTetris.unshift(Array(gridTetris_WIDTH).fill(0));
                         removed++;
                         y++;
                     }
@@ -224,13 +224,14 @@ $idx = min($level, 7);
                         piece = newPiece();
                         if (collide(piece.x, piece.y)) {
                             alert("Fin de partie");
+                            <?php ?>
                             return;
                         }
                     }
                     lastFall = timestamp;
                 }
 
-                drawGrid();
+                drawgridTetris();
                 requestAnimationFrame(gameLoop);
             }
 
