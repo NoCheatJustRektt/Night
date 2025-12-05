@@ -31,15 +31,76 @@ function draw() {
     ctxPong.fillRect(width - 20, aiY, paddleWidth, paddleHeight);
 
     // balle
-    ctxPong.beginPath();
-    ctxPong.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
-    ctxPong.fillStyle = "white";
-    ctxPong.fill();
-    ctxPong.closePath();
-
+    const angle = Math.atan2(ball.dy, ball.dx);
+    drawAndroidBall(ctxPong, ball.x, ball.y, ball.radius, angle);
     // score
     document.getElementById("pong-score").textContent = `${playerScore} - ${aiScore}`;
 }
+
+function drawAndroidBall(ctx, x, y, r, angle) {
+
+  ctx.save();
+  ctx.translate(x, y);     // centre
+  ctx.rotate(angle);       // rotation
+  ctx.translate(-x, -y);
+
+  // ----- sphère verte -----
+  const grad = ctx.createRadialGradient(x - r*0.35, y - r*0.35, r*0.1, x, y, r);
+  grad.addColorStop(0, '#A4C639');
+  grad.addColorStop(0.6, '#8FB22D');
+  grad.addColorStop(1, '#7AA21F');
+
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI*2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // ----- reflet -----
+  ctx.beginPath();
+  ctx.ellipse(x - r*0.35, y - r*0.35, r*0.55, r*0.35, -0.5, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.fill();
+
+  // ----- antennes -----
+  ctx.strokeStyle = '#7AA21F';
+  ctx.lineWidth = Math.max(2, r*0.12);
+  ctx.lineCap = "round";
+
+  // gauche
+  ctx.beginPath();
+  ctx.moveTo(x - r*0.35, y - r*0.5);
+  ctx.lineTo(x - r*0.55, y - r*0.85);
+  ctx.stroke();
+
+  // droite
+  ctx.beginPath();
+  ctx.moveTo(x + r*0.35, y - r*0.5);
+  ctx.lineTo(x + r*0.55, y - r*0.85);
+  ctx.stroke();
+
+  // tips
+  ctx.beginPath();
+  ctx.arc(x - r*0.55, y - r*0.85, r*0.12, 0, Math.PI*2);
+  ctx.arc(x + r*0.55, y - r*0.85, r*0.12, 0, Math.PI*2);
+  ctx.fillStyle = "#7AA21F";
+  ctx.fill();
+
+  // ----- yeux -----
+  ctx.fillStyle = "#eaf8da";
+
+  ctx.beginPath();
+  ctx.ellipse(x - r*0.18, y - r*0.05, r*0.08, r*0.06, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.ellipse(x + r*0.18, y - r*0.05, r*0.08, r*0.06, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+
+
 
 // --------------------
 // Mise à jour
