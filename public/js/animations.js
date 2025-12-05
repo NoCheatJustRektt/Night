@@ -9,8 +9,6 @@ const phrases = [
 ];
 let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
 
-const typewriterElement = document.getElementById('typewriter');
-
 function typeWriter() {
     const el = document.getElementById('typewriter');
     const phrase = phrases[phraseIndex];
@@ -21,7 +19,7 @@ function typeWriter() {
     else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex=(phraseIndex+1)%phrases.length; typingSpeed=500; }
     else typingSpeed = isDeleting ? 50 : 100;
 
-    setTimeout(() => requestAnimationFrame(typeWriter), typingSpeed);
+    setTimeout(typeWriter, typingSpeed);
 }
 document.addEventListener('DOMContentLoaded', ()=>setTimeout(typeWriter, 1000));
 

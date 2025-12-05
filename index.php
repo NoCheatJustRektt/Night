@@ -40,7 +40,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
 <body>
 
     <!-- Particules d'arrière-plan -->
-    <!--<canvas id="particles"></canvas>-->
+    <canvas id="particles"></canvas>
     
     <div class="container">
         <!-- Titre principal -->
