@@ -75,7 +75,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#infos" 
                           alt="infos"
                           title="Informations"
-                          onclick="openGameModal('src/view/infos', 'Zone 1 - Informations'); return false;">
+                          onclick="openGameModal('src/view/infos.php', 'Zone 1 - Informations'); return false;">
                     
                     
                     <area shape="circle" 
