@@ -1,0 +1,482 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #0a0e27;
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Canvas de particules en arrière-plan */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Gradient animé en arrière-plan */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #143D60 0%, #27667B 50%, #143D60 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Container principal */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 5;
+}
+
+/* Header de la page */
+.page-header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #DDEB9D;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 10px rgba(221, 235, 157, 0.5),
+        0 0 20px rgba(221, 235, 157, 0.3),
+        0 0 30px rgba(221, 235, 157, 0.2);
+    animation: titlePulse 3s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes titlePulse {
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 10px rgba(221, 235, 157, 0.5),
+            0 0 20px rgba(221, 235, 157, 0.3),
+            0 0 30px rgba(221, 235, 157, 0.2);
+    }
+
+    50% {
+        text-shadow:
+            0 0 20px rgba(221, 235, 157, 0.8),
+            0 0 30px rgba(221, 235, 157, 0.5),
+            0 0 40px rgba(221, 235, 157, 0.3),
+            0 0 50px rgba(221, 235, 157, 0.2);
+    }
+}
+
+/* Effet glitch sur le h1 */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.glitch::before {
+    color: #A0C878;
+    animation: glitchBefore 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch::after {
+    color: #27667B;
+    animation: glitchAfter 3s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBefore {
+
+    0%,
+    90%,
+    100% {
+        opacity: 0;
+        transform: translate(0);
+    }
+
+    91% {
+        opacity: 0.7;
+        transform: translate(-2px, 0);
+    }
+
+    92% {
+        opacity: 0;
+    }
+}
+
+@keyframes glitchAfter {
+
+    0%,
+    90%,
+    100% {
+        opacity: 0;
+        transform: translate(0);
+    }
+
+    91% {
+        opacity: 0.7;
+        transform: translate(2px, 0);
+    }
+
+    92% {
+        opacity: 0;
+    }
+}
+
+/* Curseur clignotant */
+.cursor-sub {
+    animation: blink 1s step-end infinite;
+    color: #A0C878;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Sous-titre avec effet typewriter */
+.header-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #A0C878;
+    margin-top: 1rem;
+    min-height: 1.5rem;
+    letter-spacing: 2px;
+}
+
+/* Section de contexte */
+.context-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(221, 235, 157, 0.2);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        0 0 40px rgba(221, 235, 157, 0.1);
+    animation: floatIn 1s ease-out;
+}
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.context-section h2 {
+    font-size: 1.8rem;
+    color: #DDEB9D;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(221, 235, 157, 0.3);
+}
+
+.context-section p {
+    font-size: 1rem;
+    color: rgba(221, 235, 157, 0.9);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.context-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Section de la carte */
+.map-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(221, 235, 157, 0.2);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        0 0 40px rgba(221, 235, 157, 0.1);
+    animation: floatIn 1.2s ease-out;
+}
+
+/* Container de la carte */
+.map-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 15px;
+    overflow: visible;
+    /* Changé pour permettre aux overlays d'être visibles */
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(221, 235, 157, 0.2);
+}
+
+#village-map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.map-container:hover #village-map-image {
+    transform: scale(1.02);
+}
+
+/* Overlays de zones avec effet de flou */
+.zone-overlay {
+    position: absolute;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: 10;
+    border-radius: 5px;
+    /* Effet de flou sur l'image en dessous */
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.zone-overlay.active {
+    opacity: 1 !important;
+}
+
+/* Tooltip pour la carte */
+.map-tooltip {
+    position: absolute;
+    background: rgba(20, 61, 96, 0.95);
+    backdrop-filter: blur(10px);
+    color: #DDEB9D;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(221, 235, 157, 0.3);
+    font-size: 0.9rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.map-tooltip.active {
+    opacity: 1;
+}
+
+/* Légende de la carte */
+.map-legend {
+    background: rgba(20, 61, 96, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(221, 235, 157, 0.2);
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.map-legend h3 {
+    color: #ebbe9d;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(221, 235, 157, 0.3);
+}
+
+.map-legend ul {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.map-legend li {
+    color: rgba(221, 235, 157, 0.9);
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.map-legend li:hover {
+    color: #DDEB9D;
+    transform: translateX(5px);
+}
+
+.legend-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px currentColor;
+}
+
+/*
+.legend-marker.zone1 {
+    background: #DDEB9D;
+}
+
+.legend-marker.zone2 {
+    background: #A0C878;
+}
+
+.legend-marker.zone3 {
+    background: #27667B;
+}
+
+.legend-marker.zone4 {
+    background: linear-gradient(135deg, #A0C878, #DDEB9D);
+}*/
+
+.legend-hint {
+    color: rgba(160, 200, 120, 0.8);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+/* Section d'information */
+.info-section {
+    background: rgba(160, 200, 120, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(160, 200, 120, 0.3);
+    padding: 2rem;
+    animation: floatIn 1.4s ease-out;
+    transition: all 0.5s ease;
+}
+
+.info-section.active {
+    background: rgba(160, 200, 120, 0.2);
+    border-color: #A0C878;
+    box-shadow:
+        0 8px 32px 0 rgba(160, 200, 120, 0.3),
+        0 0 40px rgba(160, 200, 120, 0.2);
+}
+
+.info-section h3 {
+    color: #DDEB9D;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(221, 235, 157, 0.3);
+}
+
+.info-section p {
+    color: rgba(221, 235, 157, 0.9);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Effet de survol sur les zones de la map */
+area {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .header-subtitle {
+        font-size: 1rem;
+    }
+
+    .context-section,
+    .map-section,
+    .info-section {
+        padding: 1.5rem;
+    }
+
+    .context-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .map-legend {
+        padding: 1rem;
+    }
+
+    .map-legend h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Animation d'apparition au scroll */
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Effet de brillance */
+@keyframes shine {
+
+    0%,
+    100% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+}

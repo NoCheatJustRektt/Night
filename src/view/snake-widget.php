@@ -8,3 +8,5 @@
         <button id="snake-reset">Reset</button>
     </div>
 </div>
+<script src="public/js/snake.js" defer></script>
+

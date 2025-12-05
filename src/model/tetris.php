@@ -1,6 +1,6 @@
 <?php
-$GRID_WIDTH = 10;
-$GRID_HEIGHT = 20;
+$gridTetris_WIDTH = 10;
+$gridTetris_HEIGHT = 20;
 $CELL_SIZE = 30;
 ?>
 <!doctype html>
@@ -53,9 +53,11 @@ $CELL_SIZE = 30;
         }
     </style>
     <script>
-        const GRID_WIDTH = <?php echo $GRID_WIDTH; ?>;
-        const GRID_HEIGHT = <?php echo $GRID_HEIGHT; ?>;
-        const CELL_SIZE = <?php echo $CELL_SIZE; ?>;
+        <?php
+        const gridTetris_WIDTH = $gridTetris_WIDTH;
+        const gridTetris_HEIGHT = $gridTetris_HEIGHT;
+        const CELL_SIZE = $CELL_SIZE;
+        ?>
         const messages = [
             "Résistez à l’obsolescence ! Un ordinateur qui fonctionne encore mérite une seconde vie numérique.",
             "Réappropriez-vous vos outils : moins de clics vers les géants, plus d’idées locales et durables.",
@@ -123,11 +125,11 @@ $CELL_SIZE = 30;
 
 <script>
     let GAME_LOOP_RUNNING = true;
-    const canvas = document.getElementById("tetris");
-    const ctx = canvas.getContext("2d");
+    const canvasTetris = document.getElementById("tetris");
+    const ctxTetris = canvasTetris.getContext("2d");
 
-    let grid = Array.from({ length: GRID_HEIGHT }, () => Array(GRID_WIDTH).fill(0));
-    let linesClearedTotal = 0;
+    let gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
+    let linesCleared = 0;
     let score = 0;
 
     const pieces = [
@@ -145,7 +147,7 @@ $CELL_SIZE = 30;
         return {
             type: p.type,
             shape: p.shape.map(r => [...r]),
-            x: Math.floor(GRID_WIDTH/2 - p.shape[0].length/2),
+            x: Math.floor(gridTetris_WIDTH/2 - p.shape[0].length/2),
             y: 0
         };
     }
@@ -171,20 +173,20 @@ $CELL_SIZE = 30;
         pieceImages[type] = img;
     }
 
-    function drawGrid() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(let y=0; y<GRID_HEIGHT; y++)
-            for(let x=0; x<GRID_WIDTH; x++)
-                if(grid[y][x]) {
-                    ctx.fillStyle="black";
-                    ctx.fillRect(x*CELL_SIZE,y*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+    function drawgridTetris() {
+        ctxTetris.clearRect(0, 0, canvasTetris.width, canvasTetris.height);
+        for(let y=0; y<gridTetris_HEIGHT; y++)
+            for(let x=0; x<gridTetris_WIDTH; x++)
+                if(gridTetris[y][x]) {
+                    ctxTetris.fillStyle="black";
+                    ctxTetris.fillRect(x*CELL_SIZE,y*CELL_SIZE,CELL_SIZE,CELL_SIZE);
                 }
         for(let y=0; y<piece.shape.length; y++)
             for(let x=0; x<piece.shape[y].length; x++)
                 if(piece.shape[y][x]) {
                     //ctx.fillStyle="red";
-                    ctx.fillRect((piece.x+x)*CELL_SIZE,(piece.y+y)*CELL_SIZE,CELL_SIZE,CELL_SIZE);
-                    ctx.drawImage(pieceImages[piece.type], (piece.x+x)*CELL_SIZE, (piece.y+y)*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    ctxTetris.fillRect((piece.x+x)*CELL_SIZE,(piece.y+y)*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+                    ctxTetris.drawImage(pieceImages[piece.type], (piece.x+x)*CELL_SIZE, (piece.y+y)*CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
     }
 
@@ -192,7 +194,7 @@ $CELL_SIZE = 30;
         for(let y=0; y<shape.length; y++)
             for(let x=0; x<shape[y].length; x++)
                 if(shape[y][x]) {
-                    if(py+y>=GRID_HEIGHT || px+x<0 || px+x>=GRID_WIDTH || grid[py+y][px+x]) return true;
+                    if(py+y>=gridTetris_HEIGHT || px+x<0 || px+x>=gridTetris_WIDTH || grid[py+y][px+x]) return true;
                 }
         return false;
     }
@@ -200,15 +202,15 @@ $CELL_SIZE = 30;
     function mergePiece() {
         for(let y=0; y<piece.shape.length; y++)
             for(let x=0; x<piece.shape[y].length; x++)
-                if(piece.shape[y][x]) grid[piece.y+y][piece.x+x]=1;
+                if(piece.shape[y][x]) gridTetris[piece.y+y][piece.x+x]=1;
     }
 
     function clearLines() {
         let removed = 0;
-        for(let y=GRID_HEIGHT-1; y>=0; y--) {
-            if(grid[y].every(v => v)) {
-                grid.splice(y,1);
-                grid.unshift(Array(GRID_WIDTH).fill(0));
+        for(let y=gridTetris_HEIGHT-1; y>=0; y--) {
+            if(gridTetris[y].every(v => v)) {
+                gridTetris.splice(y,1);
+                gridTetris.unshift(Array(gridTetris_WIDTH).fill(0));
                 removed++;
                 y++;
             }
@@ -217,7 +219,7 @@ $CELL_SIZE = 30;
             }
         }
         if(removed>0) {
-            linesClearedTotal += removed;
+            linesCleared += removed;
             if(removed===1) score +=50;
             else if(removed===2) score +=150;
             else if(removed>=3) score +=250;
