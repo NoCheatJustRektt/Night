@@ -1,11 +1,16 @@
 <?php
-$gridTetris_WIDTH = 10;
-$gridTetris_HEIGHT = 20;
+$gridTetris_WIDTH_php = 10;
+$gridTetris_HEIGHT_php = 20;
 $CELL_SIZE = 30;
 ?>
 <!doctype html>
 <html lang="fr">
 <?php $level = $_SESSION['level'] ?? 1; $idx = min($level, 7); ?>
+<script>
+    const gridTetris_WIDTH = <?= $gridTetris_WIDTH_php ?>;
+    const gridTetris_HEIGHT = <?= $gridTetris_HEIGHT_php ?>;
+    const CELL_SIZE = <?= $CELL_SIZE ?>;
+</script>
 <head>
     <meta charset="utf-8">
     <title>Tetris</title>
@@ -53,12 +58,8 @@ $CELL_SIZE = 30;
         }
     </style>
     <script>
-        <?php
-        const gridTetris_WIDTH = $gridTetris_WIDTH;
-        const gridTetris_HEIGHT = $gridTetris_HEIGHT;
-        const CELL_SIZE = $CELL_SIZE;
-        ?>
-        const messages = [
+
+        const messagesTetris = [
             "Résistez à l’obsolescence ! Un ordinateur qui fonctionne encore mérite une seconde vie numérique.",
             "Réappropriez-vous vos outils : moins de clics vers les géants, plus d’idées locales et durables.",
             "Le numérique responsable, ce n’est pas une option — c’est une révolution du bon sens.",
@@ -83,7 +84,7 @@ $CELL_SIZE = 30;
         ];
 
         function getRandomMessage() {
-            return messages[Math.floor(Math.random() * messages.length)];
+            return messagesTetris[Math.floor(Math.random() * messagesTetris.length)];
         }
     </script>
 </head>
@@ -129,7 +130,7 @@ $CELL_SIZE = 30;
     const ctxTetris = canvasTetris.getContext("2d");
 
     let gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
-    let linesCleared = 0;
+    let linesClearedTotal = 0;
     let score = 0;
 
     const pieces = [
@@ -143,7 +144,7 @@ $CELL_SIZE = 30;
     ];
 
     function newPiece() {
-        const p = pieces[Math.floor(Math.random() * pieces.length)];
+        let p = pieces[Math.floor(Math.random() * pieces.length)];
         return {
             type: p.type,
             shape: p.shape.map(r => [...r]),
@@ -194,7 +195,7 @@ $CELL_SIZE = 30;
         for(let y=0; y<shape.length; y++)
             for(let x=0; x<shape[y].length; x++)
                 if(shape[y][x]) {
-                    if(py+y>=gridTetris_HEIGHT || px+x<0 || px+x>=gridTetris_WIDTH || grid[py+y][px+x]) return true;
+                    if(py+y>=gridTetris_HEIGHT || px+x<0 || px+x>=gridTetris_WIDTH || gridTetris[py+y][px+x]) return true;
                 }
         return false;
     }
@@ -219,7 +220,7 @@ $CELL_SIZE = 30;
             }
         }
         if(removed>0) {
-            linesCleared += removed;
+            linesClearedTotal += removed;
             if(removed===1) score +=50;
             else if(removed===2) score +=150;
             else if(removed>=3) score +=250;
@@ -260,7 +261,7 @@ $CELL_SIZE = 30;
     function moveDown(){ if(!collide(piece.x,piece.y+1)) piece.y++; }
     function resetGame(){
         GAME_LOOP_RUNNING = false;
-        grid = Array.from({ length: GRID_HEIGHT }, () => Array(GRID_WIDTH).fill(0));
+        gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
         linesClearedTotal = 0;
         score = 0;
         document.getElementById("score").innerText = score;
@@ -294,13 +295,13 @@ $CELL_SIZE = 30;
             }
             lastFall=timestamp;
         }
-        drawGrid();
+        drawgridTetris();
         if (GAME_LOOP_RUNNING)
             requestAnimationFrame(gameLoop);
     }
 
     resetGame()
-    drawGrid()
+    drawgridTetris()
 </script>
 
 </body>
