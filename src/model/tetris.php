@@ -112,6 +112,14 @@ $CELL_SIZE = 30;
         .instructions li {
             margin: 5px 0;
         }
+        .chatbot-msg p {pargin: 0}
+        body { font-family: Arial, sans-serif; padding:8px; }
+        .controls { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;     justify-content: center;}
+        .controls button { padding:6px 10px; }
+        .gamebox { display:flex; gap:12px; align-items:flex-start; justify-content:center; padding-top:5px; }
+        .panel { padding:8px; border:1px solid #ddd; border-radius:6px; }
+        .small { font-size:0.9em; color: #bfbebe;  }
+        #tetris { border:1px solid #ccc; margin: 0 auto; display: block; background:white; }
 
         .message-box {
             width: 250px;
@@ -190,8 +198,8 @@ $CELL_SIZE = 30;
                     <strong>🎮 Contrôles</strong>
                     <ul>
                         <li>⬅➡ : Gauche/Droite</li>
-                        <li>⬇ : Descendre</li>
-                        <li>🔁 : Tourner la pièce</li>
+                        <li>↑↓: Tourner la pièce</li>
+                        <li>espace  : Descendre</li>
                     </ul>
                     <strong>🎯 Objectif</strong>
                     <p>Complète des lignes pour gagner des points. Atteins 50 points pour valider la zone !</p>
