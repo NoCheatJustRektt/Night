@@ -68,28 +68,30 @@
         <!-- Message box sur le côté -->
         <?php
         $msgs = [
-            1 => "Résistez à l'obsolescence ! Votre Mac ou iPhone peut encore briller : offrez-lui une seconde vie numérique.",
-            2 => "Réappropriez-vous vos outils Apple : moins de dépendance aux apps payantes, plus d'idées locales et durables.",
-            3 => "Le numérique responsable sur iOS et macOS, ce n'est pas une option — c'est une révolution du bon sens.",
-            4 => "Un seul geste pour réduire la dépendance aux géants du cloud. Prêt à essayer iCloud de manière responsable ?",
-            5 => "Sauvez vos données : stockez localement sur votre Mac, partagez éthique, codez responsable sur Swift.",
-            6 => "Astérix avait sa potion magique, Apple a ses outils : autonomie, créativité, sécurité.",
-            7 => "Libérez vos données ! Elles n'ont pas besoin de quitter votre iPhone ou Mac pour être utiles.",
-            8 => "Réparer, réutiliser, résister : les trois R du numérique durable… même avec un MacBook.",
-            9 => "Chaque app open source installée sur macOS est un petit pas pour l'utilisateur, un grand pas pour la souveraineté numérique.",
-            10 => "Transformez vos espaces Apple en laboratoires d'indépendance technologique.",
-            11 => "Aujourd'hui, vous sauvegardez dans iCloud… demain, dans votre nuage local et libre !",
-            12 => "Agir pour un numérique durable sur Apple, c'est aussi enseigner la liberté digitale aux générations futures.",
-            13 => "Pas besoin de puce magique : juste un peu d'imagination et des apps libres sur votre iPhone ou Mac.",
-            14 => "Moins de pubs dans vos apps, plus de pédagogie. Votre iPad peut servir à apprendre, pas à consommer.",
-            15 => "Le futur du numérique sur Apple s'écrit en open source — et en équipe !",
-            16 => "Lancer un défi Apple responsable : pouvez-vous passer une journée sans apps Big Tech ?",
-            17 => "Chaque octet responsable compte. Le village numérique Apple vous attend pour résister ensemble.",
-            18 => "Le code Swift peut aussi être poétique — surtout quand il sert la liberté collective.",
-            19 => "Investissez dans l'autonomie numérique avant qu'elle devienne une denrée rare… même sur vos appareils Apple.",
-            20 => "Votre Mac ou iPad a déjà tout pour être un outil du numérique durable : il ne manque que votre touche responsable !",
-            21 => "Rejoignez la résistance numérique Apple : pour un futur où chaque clic sur votre iPhone compte !",
+            1 => "Résistez à l'obsolescence ! Votre matériel peut encore briller : offrez-lui une seconde vie numérique.",
+            2 => "Réappropriez-vous vos outils : moins de dépendance aux géants, plus d'idées locales et durables.",
+            3 => "Le numérique responsable n'est pas une option — c'est une révolution du bon sens.",
+            4 => "Un seul geste pour réduire la dépendance aux services centralisés. Prêt à tester un cloud local ?",
+            5 => "Sauvez vos données : stockez localement, partagez éthique, codez responsable.",
+            6 => "Astérix avait sa potion magique, le NIRD a ses outils : autonomie, créativité, sécurité.",
+            7 => "Libérez vos données ! Elles n'ont pas besoin de traverser le globe pour être utiles.",
+            8 => "Réparer, réutiliser, résister : les trois R du numérique libre et durable.",
+            9 => "Chaque logiciel libre installé est un petit pas pour l'utilisateur, un grand pas pour la souveraineté numérique.",
+            10 => "Transformez vos espaces numériques en laboratoires d'indépendance technologique.",
+            11 => "Aujourd'hui, vous sauvegardez dans le cloud… demain, dans votre nuage local et libre !",
+            12 => "Agir pour un numérique durable, c'est aussi enseigner la liberté digitale aux générations futures.",
+            13 => "Pas besoin de magie : juste un peu d'imagination et des logiciels libres.",
+            14 => "Moins de pubs, plus de pédagogie. Le numérique ne doit rien vendre, sauf la connaissance.",
+            15 => "Le futur du numérique s'écrit en open source — et en équipe !",
+            16 => "Lancer un défi NIRD : pouvez-vous passer une journée sans les services centralisés ?",
+            17 => "Chaque octet responsable compte. Le village NIRD vous attend pour résister ensemble.",
+            18 => "Le code peut aussi être poétique — surtout quand il sert la liberté collective.",
+            19 => "Investissez dans l'autonomie numérique avant qu'elle devienne une denrée rare.",
+            20 => "Votre matériel a déjà tout pour être un outil du numérique durable : il ne manque que votre touche NIRD !",
+            21 => "Rejoignez la résistance numérique avec le NIRD : pour un futur où chaque clic compte !",
         ];
+
+
         $level = $_SESSION['level'] ?? 1;
         $idx = min($level, 7);
         ?>
