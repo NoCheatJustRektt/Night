@@ -4,66 +4,49 @@
     <div style="display: flex; gap: 30px; align-items: flex-start;">
         <!-- Contenu principal -->
         <div style="flex: 1;">
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #A0C878; margin-bottom: 10px;">Section 1 - Introduction</h3>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #A0C878; margin-bottom: 10px;">Section 2 - Développement</h3>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque 
-                    ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia 
-                    voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                </p>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi 
-                    tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem 
-                    ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                </p>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #A0C878; margin-bottom: 10px;">Section 3 - Communauté</h3>
-                <p style="line-height: 1.8; text-align: justify;">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos 
-                    dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt 
-                    mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                </p>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, 
-                    omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum 
-                    necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-                </p>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #A0C878; margin-bottom: 10px;">Section 4 - Ressources</h3>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis 
-                    doloribus asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                </p>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #A0C878; margin-bottom: 10px;">Section 5 - Conclusion</h3>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Risus commodo viverra maecenas accumsan lacus vel facilisis. Duis convallis convallis tellus id interdum velit laoreet id 
-                    donec. Nulla facilisi cras fermentum odio eu feugiat pretium nibh ipsum. Sed blandit libero volutpat sed cras ornare arcu 
-                    dui vivamus. Sagittis orci a scelerisque purus semper eget duis at tellus.
-                </p>
-                <p style="line-height: 1.8; text-align: justify;">
-                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum mattis ullamcorper 
-                    velit sed ullamcorper morbi tincidunt ornare massa eget. Dictum varius duis at consectetur lorem donec massa sapien faucibus.
-                </p>
-            </div>
-        </div>
+    <div style="margin-bottom: 20px;">
+        <h3 style="color: #A0C878; margin-bottom: 10px;">Section 1 - Introduction</h3>
+        <p style="line-height: 1.8; text-align: justify;">
+            Bienvenue dans notre aventure Nuit de l'info 2025 ! Ici, Luis-Junior, Tristan et Laurent t’invitent à découvrir une map interactive pleine de défis. 
+            Entre mini-jeux et énigmes, tu devras avancer intelligemment pour atteindre la victoire, tout en restant écologique et malin.
+        </p>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <h3 style="color: #A0C878; margin-bottom: 10px;">Section 2 - Développement</h3>
+        <p style="line-height: 1.8; text-align: justify;">
+            La map interactive est remplie de zones à explorer, de mini-jeux et de défis logiques. Chaque choix que tu fais impacte ton parcours et te rapproche — ou t’éloigne — de la victoire.
+        </p>
+        <p style="line-height: 1.8; text-align: justify;">
+            Le code tourne entièrement sur PHP, pour que tout reste léger, rapide et écologique.
+        </p>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <h3 style="color: #A0C878; margin-bottom: 10px;">Section 3 - L’équipe</h3>
+        <p style="line-height: 1.8; text-align: justify;">
+            Dans l’équipe : un vice-champion, un futur président… et Tristan. Pas besoin de plus pour retourner la Nuit !  
+            Ensemble, ils ont conçu les énigmes et mini-jeux pour que le parcours soit fun, stimulant et interactif.
+        </p>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <h3 style="color: #A0C878; margin-bottom: 10px;">Section 4 - Bonus : le Chatbot abruti</h3>
+        <p style="line-height: 1.8; text-align: justify;">
+            En plus du jeu principal, tu peux tester notre chatbot abruti ! Ce n’est pas nécessaire pour avancer dans la map, mais il te propose un défi supplémentaire.  
+            Arriveras-tu à le comprendre et à résoudre ses petites énigmes ? Un vrai bonus pour les plus curieux !
+        </p>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <h3 style="color: #A0C878; margin-bottom: 10px;">Section 5 - Conclusion</h3>
+        <p style="line-height: 1.8; text-align: justify;">
+            Prépare-toi à explorer, résoudre des énigmes et découvrir tous les secrets de la map interactive. Chaque victoire te rapproche du secret final.  
+            L’aventure commence maintenant !
+        </p>
+    </div>
+</div>
+
         
         <!-- Message box sur le côté -->
         <?php
