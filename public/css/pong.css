@@ -1,0 +1,33 @@
+#pong-container {
+    width: 620px;
+    margin: 20px auto;
+    padding: 10px;
+    background: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    border: 2px solid #4c79ff;
+    border-radius: 12px;
+    text-align: center;
+}
+
+#pong-canvas {
+    background: #000;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+#pong-controls button {
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4c79ff;
+    color: white;
+    cursor: pointer;
+}
+
+#pong-controls button:hover {
+    background-color: #3760b5;
+}

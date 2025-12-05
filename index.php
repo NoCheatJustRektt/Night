@@ -95,7 +95,7 @@ if (!isset($_SESSION['game']['pacman']) || !is_array($_SESSION['game']['pacman']
                           href="#Centre Ville" 
                           alt="Centre Ville"
                           title="Centre ville"
-                          onclick="handleMapClick('Centre ville'); return false;">
+                          onclick="openGameModal('src/view/pong-widget.php', 'Zone 3 - Pacman'); return false;">
                     
                     
                     <area shape="circle" 
