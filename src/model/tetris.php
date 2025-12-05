@@ -25,7 +25,7 @@ $CELL_SIZE = 30;
 
         .message-box {
             position: absolute;
-            top: 50%;
+            top: 5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 280px;
@@ -60,27 +60,27 @@ $CELL_SIZE = 30;
     <script>
 
         const messagesTetris = [
-            "Résistez à l’obsolescence ! Un ordinateur qui fonctionne encore mérite une seconde vie numérique.",
-            "Réappropriez-vous vos outils : moins de clics vers les géants, plus d’idées locales et durables.",
-            "Le numérique responsable, ce n’est pas une option — c’est une révolution du bon sens.",
-            "Un seul clic pour désinstaller la dépendance numérique. Prêt à essayer ?",
-            "Sauvez vos octets : hébergez local, partagez éthique, codez responsable.",
-            "Astérix avait sa potion magique, l’École a le NIRD : autonomie, solidarité, écologie.",
-            "Libérez vos données ! Elles n’ont pas besoin de traverser l’Atlantique pour être utiles.",
-            "Réparer, réutiliser, résister : les trois R du numérique libre et durable.",
-            "Chaque licence libre installée est un petit pas pour l’école, un grand pas pour la souveraineté numérique.",
-            "Transformez vos salles info en laboratoires d’indépendance technologique.",
-            "Aujourd’hui, tu sauvegardes dans le cloud… demain, dans le nuage libre de ton établissement !",
-            "Agir pour un numérique durable, c’est aussi enseigner la liberté digitale aux générations futures.",
-            "Pas besoin de silice magique : juste un peu d’imagination et de logiciels libres.",
-            "Moins de pubs, plus de pédagogie. L’école numérique ne doit rien vendre, sauf la connaissance.",
-            "Le futur du numérique s’écrit en open source — et en équipe !",
-            "Lancer un défi NIRD : pouvez-vous enseigner une journée sans Big Tech ?",
-            "Chaque octet responsable compte. Le village NIRD vous attend pour résister ensemble.",
-            "Le code peut aussi être poétique — surtout quand il sert la liberté collective.",
-            "Investissez dans l’autonomie numérique avant qu’elle devienne une denrée rare.",
-            "Votre école a déjà tout pour être un village gaulois du numérique : il ne manque que votre potion NIRD !",
-            "Rejoignez la résistance numérique avec le NIRD : pour un futur où chaque clic compte !"
+            "Résistez aux mises à jour forcées : un PC qui fonctionne n’a pas besoin d’un redémarrage surprise.",
+            "Réappropriez-vous vos machines : moins de clics vers Microsoft, plus de contrôle pour vous.",
+            "Le numérique responsable, c’est aussi savoir dire non à la télémétrie obligatoire.",
+            "Un seul clic pour désinstaller la dépendance Windows. À vous d’essayer.",
+            "Sauvez vos performances : moins de services Microsoft, plus d’air pour votre processeur.",
+            "Astérix avait sa potion magique ; Microsoft a… ses écrans bleus.",
+            "Libérez vos données ! Pas besoin qu’elles traversent l’Atlantique vers les serveurs Microsoft.",
+            "Réparer, réutiliser, résister : surtout face à l’obsolescence programmée des systèmes propriétaires.",
+            "Chaque logiciel libre installé, c’est un pas de moins vers l’abonnement forcé.",
+            "Transformez votre ordinateur en espace de liberté — et pas seulement en vitrine pour Edge.",
+            "Aujourd’hui vous sauvegardez sur OneDrive… demain sur un espace que vous contrôlez.",
+            "Agir pour un numérique durable, c’est aussi apprendre sans être suivi par Microsoft.",
+            "Pas besoin de magie : juste moins de bloatware préinstallé.",
+            "Moins de pubs dans le menu démarrer, plus de place pour la vraie productivité.",
+            "Le futur du numérique s’écrit en open source — pas en licences annuelles.",
+            "Nouveau défi : travailler une journée sans qu’une fenêtre « Microsoft recommande… » apparaisse.",
+            "Chaque clic responsable compte — surtout ceux qui désactivent la télémétrie.",
+            "Le code peut être poétique… sauf quand il est compilé pour devenir une publicité pour Copilot.",
+            "Investissez dans votre autonomie avant que tout ne devienne un abonnement obligatoire.",
+            "Votre PC peut déjà être libre : il suffit de lui enlever ses chaînes Microsoft.",
+            "Rejoignez la résistance numérique : ensemble contre les mises à jour qui s’installent toutes seules."
         ];
 
         function getRandomMessage() {
@@ -131,7 +131,7 @@ $CELL_SIZE = 30;
 
     let gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
     let linesClearedTotal = 0;
-    let score = 0;
+    let scoreTetris = 0;
 
     const pieces = [
         { type: 0, shape: [[1,1,1,1]] }, // I
@@ -221,14 +221,14 @@ $CELL_SIZE = 30;
         }
         if(removed>0) {
             linesClearedTotal += removed;
-            if(removed===1) score +=50;
-            else if(removed===2) score +=150;
-            else if(removed>=3) score +=250;
-            document.getElementById("score").innerText = score;
+            if(removed===1) scoreTetris +=50;
+            else if(removed===2) scoreTetris +=150;
+            else if(removed>=3) scoreTetris +=250;
+            document.getElementById("score").innerText = scoreTetris;
             document.getElementById("lines").innerText = linesClearedTotal;
         }
         // Win condition
-        if(score >= 1000) {
+        if(scoreTetris >= 50) {
             showPopup("Bravo vous avez vaincu microsoft.", 5000);
         }
     }
@@ -263,11 +263,18 @@ $CELL_SIZE = 30;
         GAME_LOOP_RUNNING = false;
         gridTetris = Array.from({ length: gridTetris_HEIGHT }, () => Array(gridTetris_WIDTH).fill(0));
         linesClearedTotal = 0;
-        score = 0;
-        document.getElementById("score").innerText = score;
+        scoreTetris = 0;
+        document.getElementById("score").innerText = scoreTetris;
         document.getElementById("lines").innerText = linesClearedTotal;
         piece = newPiece();
         lastFall = 0;
+        let intervalId = setInterval(() => {
+            if (!GAME_LOOP_RUNNING) {
+                clearInterval(intervalId);
+                return;
+            }
+            showPopup(getRandomMessage());
+        }, 1000);
     }
 
     document.addEventListener("keydown",(e)=>{
