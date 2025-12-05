@@ -166,8 +166,12 @@ function drawGameOver() {
 // --------------------
 window.addEventListener("keydown", e => {
     switch (e.key) {
-        case "ArrowUp": if (dy === 0) { nextDx = 0; nextDy = -1; } break;
-        case "ArrowDown": if (dy === 0) { nextDx = 0; nextDy = 1; } break;
+        case "ArrowUp":             
+            e.preventDefault(); // bloque le scroll
+            if (dy === 0) { nextDx = 0; nextDy = -1; } break;
+        case "ArrowDown": 
+            e.preventDefault(); // bloque le scroll
+            if (dy === 0) { nextDx = 0; nextDy = 1; } break;
         case "ArrowLeft": if (dx === 0) { nextDx = -1; nextDy = 0; } break;
         case "ArrowRight": if (dx === 0) { nextDx = 1; nextDy = 0; } break;
         case "Enter": if (gameOver) initGame(); break;
